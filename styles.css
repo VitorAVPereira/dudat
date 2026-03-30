@@ -12,12 +12,12 @@
     --detail-3: #e5dbce;
     /* Detalhe 3 */
 
-    --text-highlight:   ;
+    --text-highlight: #765946;
     /* Marrom claro para botões/destaques */
     --text-dark: #7a4900;
     /* Marrom mais escuro para o texto lido */
 
-    --font-title: 'Playfair Display', serif;
+    --font-title: 'Kulachat', serif;
     /* Fonte com serifa (elegante) */
     --font-text: 'Lato', sans-serif;
     /* Fonte sem serifa (leitura fácil) */
@@ -94,7 +94,7 @@ nav a:hover {
 .hero {
     min-height: 100vh;
     /* Ocupa 100% da altura da tela */
-    padding: 0px 5% 50px;
+    padding: 0;
     /* O espaço extra no topo é para não ficar atrás do menu fixo */
     background: linear-gradient(135deg, var(--bg-light) 0%, var(--detail-2) 100%);
 }
@@ -104,16 +104,16 @@ nav a:hover {
     justify-content: space-between;
 }
 
-/* h1 {
+.text-home {
     font-family: var(--font-title);
-    font-size: 3.5rem;
+    font-size: 2rem;
     line-height: 1.1;
     margin-bottom: 25px;
-    color: var(--text-highlight); */
-/* } */
-/* 
+    color: var(--text-highlight);
+}
+
 .subtitle {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     margin-bottom: 20px;
     font-weight: 700;
 }
@@ -121,14 +121,14 @@ nav a:hover {
 .supporting-text {
     margin-bottom: 30px;
     font-size: 1.05rem;
-} */
+}
 
-/* .cta-note {
+.cta-note {
     font-size: 0.9rem;
     font-style: italic;
     margin-bottom: 15px;
     color: var(--text-highlight);
-} */
+}
 
 /* Estilo do Botão Principal */
 .btn-primary {
@@ -251,6 +251,16 @@ nav a:hover {
     background-color: var(--bg-darker);
 }
 
+/* Nossa nova classe com a imagem de fundo */
+.section-custom {
+    padding: 100px 5%;
+    background-image: url('images/fundo.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
 /* --- 8. Seção Why Us --- */
 .why-us-grid {
     display: flex;
@@ -284,9 +294,12 @@ nav a:hover {
 
 .result-card {
     background-color: var(--detail-2);
+    display: flex;
+    flex-direction: column;
+    max-height: 350px;
     padding: 30px;
     border-radius: 10px;
-    border-left: 5px solid var(--text-highlight);
+    border-left: 3px solid var(--text-highlight);
 }
 
 .result-card h3 {
@@ -294,6 +307,19 @@ nav a:hover {
     color: var(--text-highlight);
     margin-bottom: 15px;
     font-size: 1.5rem;
+}
+
+.result-card h1 {
+    font-family: var(--font-title);
+    text-transform: uppercase;
+    color: var(--text-highlight);
+    margin-top: 45px;
+    font-size: 2.5rem;
+}
+
+.result-card img {
+    width: 100%;
+    height: 20%;
 }
 
 .result-card ul {
@@ -310,22 +336,21 @@ nav a:hover {
     margin-top: 40px;
 }
 
-.portfolio-btn {
+/* .portfolio-btn {
     padding: 15px 30px;
     background-color: transparent;
     border: 2px solid var(--text-highlight);
     color: var(--text-highlight);
     text-decoration: none;
     border-radius: 50px;
-    /* Estilo pílula */
     font-weight: bold;
     transition: all 0.3s ease;
-}
+} */
 
-.portfolio-btn:hover {
+/* .portfolio-btn:hover {
     background-color: var(--text-highlight);
     color: var(--bg-light);
-}
+} */
 
 /* --- 11. Seção Contact --- */
 .contact-content {
@@ -401,24 +426,27 @@ nav a:hover {
 .portfolio-section-wrapper {
     display: flex;
     flex-direction: column;
-    align-items: center; /* Centraliza tudo horizontalmente */
+    align-items: center;
+    /* Centraliza tudo horizontalmente */
     width: 100%;
-    padding: 100px 5% 50px; /* Padding superior para não ficar grudado no header fixo */
-    background-color: var(--bg-light); /* Garante o fundo correto */
+    padding: 100px 5% 50px;
 }
 
 /* --- Título/Logo (Dudat.) --- */
 .about-title {
     /* Tipografia */
-    font-size: clamp(3rem, 12vw, 7.5rem); /* Diminui automaticamente no celular */
+    font-size: clamp(3rem, 12vw, 6.5rem);
+    /* Diminui automaticamente no celular */
     font-weight: 900;
     text-transform: uppercase;
     letter-spacing: -0.02em;
     color: var(--text-dark);
-    
+    font-family: var(--font-title);
+
     /* Posicionamento Normal (não absoluto) */
     text-align: center;
-    margin-bottom: 40px; /* Espaço fixo entre o logo e o carrossel/conteúdo */
+    margin-bottom: 40px;
+    /* Espaço fixo entre o logo e o carrossel/conteúdo */
     z-index: 10;
     white-space: nowrap;
     pointer-events: none;
@@ -431,22 +459,27 @@ nav a:hover {
 /* --- O Grid de Conteúdo (Carrossel + Texto) --- */
 .portfolio-content-grid {
     display: flex;
-    flex-direction: column; /* Padrão Mobile: Um embaixo do outro */
+    flex-direction: column;
+    /* Padrão Mobile: Um embaixo do outro */
     align-items: center;
     width: 100%;
-    gap: 30px; /* Espaço entre carrossel e texto no mobile */
+    gap: 30px;
+    /* Espaço entre carrossel e texto no mobile */
 }
 
 /* --- O Container do Carrossel (Estilo Instagram Mantido) --- */
 .carousel-container {
     width: 100%;
-    max-width: 450px; /* Largura máxima controlada */
-    aspect-ratio: 4 / 5; /* Proporção Insta Vertical */
+    max-width: 450px;
+    /* Largura máxima controlada */
+    aspect-ratio: 4 / 5;
+    /* Proporção Insta Vertical */
     position: relative;
     overflow: hidden;
     border-radius: 8px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    background-color: #fff; /* Fundo interno caso a imagem demore a carregar */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    /* Fundo interno caso a imagem demore a carregar */
 }
 
 /* Mantenha o restante do CSS do carrossel que criamos anteriormente:
@@ -457,7 +490,8 @@ nav a:hover {
 .image-info {
     text-align: center;
     width: 100%;
-    max-width: 450px; /* Mesma largura do carrossel no mobile */
+    max-width: 450px;
+    /* Mesma largura do carrossel no mobile */
 }
 
 .image-name {
@@ -477,41 +511,214 @@ nav a:hover {
    MEDIA QUERY: DESKTOP (Telas maiores que 1024px)
    ============================================================ */
 @media (min-width: 1024px) {
-    
+
     /* O wrapper muda para usar Grid e alinhar a logo ao centro */
     .portfolio-section-wrapper {
         display: grid;
-        grid-template-columns: 1fr; /* Uma coluna principal para o Grid de Conteúdo */
+        grid-template-columns: 1fr;
+        /* Uma coluna principal para o Grid de Conteúdo */
         justify-items: center;
-        padding-top: 120px;
+        padding-top: 60px;
     }
 
     /* A Logo continua no topo, centralizada no Grid principal */
     .about-title {
-        margin-bottom: 60px; /* Mais espaço no desktop */
+        margin-bottom: 60px;
+        /* Mais espaço no desktop */
     }
 
     /* O container de conteúdo vira um GRID de 2 colunas lado-a-lado */
     .portfolio-content-grid {
         display: grid;
-        grid-template-columns: 1fr 1fr; /* Duas colunas iguais */
-        gap: 50px; /* Espaço maior entre carrossel e texto */
-        max-width: 1200px; /* Largura máxima da seção no desktop */
+        grid-template-columns: 1fr 1fr;
+        /* Duas colunas iguais */
+        gap: 320px;
+        /* Espaço maior entre carrossel e texto */
+        max-width: 1200px;
+        /* Largura máxima da seção no desktop */
         width: 100%;
-        align-items: start; /* Alinha o topo do carrossel com o topo do texto */
+        align-items: start;
+        /* Alinha o topo do carrossel com o topo do texto */
     }
 
     /* Carrossel na Esquerda */
     .carousel-container {
-        grid-column: 1; /* Coluna 1 */
-        justify-self: end; /* Gruda na direita da sua coluna (encostando no centro) */
+        grid-column: 1;
+        /* Coluna 1 */
+        justify-self: end;
+        /* Gruda na direita da sua coluna (encostando no centro) */
     }
 
     /* Texto na Direita */
     .image-info {
-        grid-column: 2; /* Coluna 2 */
-        text-align: left; /* No desktop, alinhamos o texto à esquerda para elegância */
-        justify-self: start; /* Gruda na esquerda da sua coluna (encostando no centro) */
-        padding-top: 20px; /* Ajuste fino para alinhar com o topo da primeira imagem */
+        grid-column: 2;
+        /* Coluna 2 */
+        text-align: left;
+        /* No desktop, alinhamos o texto à esquerda para elegância */
+        justify-self: start;
+        /* Gruda na esquerda da sua coluna (encostando no centro) */
+        padding-top: 20px;
+        /* Ajuste fino para alinhar com o topo da primeira imagem */
+    }
+}
+
+/* O "Trilho" flexível onde as fotos correm */
+.carousel-track {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.3s ease-out;
+}
+
+/* Cada cartão garante que vai ocupar 100% da caixa */
+.card {
+    flex: 0 0 100%;
+    height: 100%;
+}
+
+.card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+}
+
+/* --- Setas (Arrows) --- */
+.nav-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(255, 255, 255, 0.85);
+    color: #333;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    cursor: pointer;
+    z-index: 10;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    transition: background-color 0.2s, opacity 0.2s;
+}
+
+.nav-arrow:hover {
+    background-color: rgba(255, 255, 255, 1);
+}
+
+.nav-arrow.left {
+    left: 10px;
+}
+
+.nav-arrow.right {
+    right: 10px;
+}
+
+.nav-arrow.hidden {
+    display: none;
+}
+
+/* --- Pontinhos (Dots) --- */
+.dots {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 6px;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.4);
+    transition: background-color 0.3s ease;
+}
+
+.dot.active {
+    background-color: rgba(255, 255, 255, 1);
+}
+
+/* ============================================================
+   MENU MOBILE (HAMBÚRGUER)
+   ============================================================ */
+
+/* 1. Estilo do Botão (Escondido por padrão no Desktop) */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 6px;
+    cursor: pointer;
+    z-index: 101;
+    /* Garante que fique acima de tudo, inclusive do próprio menu aberto */
+}
+
+/* 2. As três barrinhas do botão */
+.bar {
+    width: 30px;
+    height: 3px;
+    background-color: var(--text-dark);
+    border-radius: 3px;
+    transition: all 0.3s ease-in-out;
+    /* Animação suave para quando virar um X */
+}
+
+/* ============================================================
+   MEDIA QUERY: TELAS PEQUENAS (Celulares e Tablets menores que 768px)
+   ============================================================ */
+@media (max-width: 768px) {
+
+    /* Mostra o botão hambúrguer */
+    .menu-toggle {
+        display: flex;
+    }
+
+    /* Esconde e estiliza a lista de links para o formato gaveta */
+    #nav-list {
+        position: absolute;
+        top: 100%;
+        /* Posiciona exatamente abaixo da barra do header */
+        left: 0;
+        width: 100%;
+        background-color: var(--bg-darker);
+        flex-direction: column;
+        /* Coloca um link embaixo do outro */
+        padding: 20px 0;
+        box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+
+        /* Truque para esconder com animação */
+        clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+        /* Gaveta fechada */
+        transition: clip-path 0.4s ease-in-out;
+    }
+
+    /* Classe que o JavaScript vai adicionar para abrir a gaveta */
+    #nav-list.active {
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+        /* Gaveta aberta */
+    }
+
+    /* Ajusta os links para ficarem maiores e mais fáceis de tocar no celular */
+    #nav-list li {
+        margin: 15px 0;
+    }
+
+    /* --- ANIMAÇÃO DO BOTÃO VIRANDO "X" --- */
+    /* Quando o botão ganha a classe 'active', giramos a primeira e a última barra, e apagamos a do meio */
+    .menu-toggle.active .bar:nth-child(1) {
+        transform: translateY(9px) rotate(45deg);
+    }
+
+    .menu-toggle.active .bar:nth-child(2) {
+        opacity: 0;
+    }
+
+    .menu-toggle.active .bar:nth-child(3) {
+        transform: translateY(-9px) rotate(-45deg);
     }
 }
