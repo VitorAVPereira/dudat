@@ -452,8 +452,8 @@ nav a:hover {
     pointer-events: none;
 
     /* Efeito de Transparência que você gosta */
-    -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 40%, rgba(0, 0, 0, 0) 90%);
-    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 40%, rgba(0, 0, 0, 0) 90%);
+    /* -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 40%, rgba(0, 0, 0, 0) 90%);
+    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 40%, rgba(0, 0, 0, 0) 90%); */
 }
 
 /* --- O Grid de Conteúdo (Carrossel + Texto) --- */
