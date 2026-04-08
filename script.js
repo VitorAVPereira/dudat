@@ -12,22 +12,24 @@ async function loadComponent(containerId, filename) {
     }
 }
 
-// 2. QUANDO A PÁGINA CARREGAR: (Adicionamos o 'async' aqui para poder usar o 'await')
+// 2. QUANDO A PÁGINA CARREGAR:
 window.addEventListener('DOMContentLoaded', async () => {
     
-    // ATENÇÃO AQUI: Nós usamos o 'await' para o código ESPERAR a Home carregar completamente!
-    await loadComponent('home-container', 'home.html');
+    // Usamos o Promise.all para carregar todas as seções ao mesmo tempo e ESPERAR todas terminarem
+    await Promise.all([
+        loadComponent('home-container', 'home.html'),
+        loadComponent('about-container', 'about.html'),
+        loadComponent('services-container', 'services.html'),
+        loadComponent('why-us-container', 'why-us.html'),
+        loadComponent('results-container', 'results.html'),
+        loadComponent('contact-container', 'contact.html')
+    ]);
     
-    // Agora que a home já está na tela com certeza, ativamos o carrossel
+    // Só depois de todo o HTML existir na tela, nós ligamos os scripts:
     initCarousel();
-
-    // As outras páginas podem carregar normalmente
-    loadComponent('about-container', 'about.html');
-    loadComponent('services-container', 'services.html');
-    loadComponent('why-us-container', 'why-us.html');
-    loadComponent('results-container', 'results.html');
-    loadComponent('portfolio-container', 'portfolio.html');
-    loadComponent('contact-container', 'contact.html');
+    initRotatingText();
+    initFadeUp();
+    initServiceSliders();
 });
 
 // 3. O código do menu que muda de cor ao rolar a página
@@ -172,5 +174,82 @@ if (menuToggle && navList) {
             menuToggle.classList.remove('active');
             navList.classList.remove('active');
         });
+    });
+}
+
+// --- 7. Função do Texto Rotativo ---
+function initRotatingText() {
+    const textElement = document.querySelector('.rotating-text');
+    if (!textElement) return;
+
+    // As palavras que vão ficar alternando
+    const words = ['Connect.', 'Convert.', 'Grow.', 'Last.'];
+    let currentIndex = 0;
+
+    // Roda a cada 3 segundos (3000 milissegundos)
+    setInterval(() => {
+        textElement.classList.add('hide'); // 1. Esconde a palavra atual
+
+        // 2. Espera meio segundo (tempo da animação do CSS) para trocar o texto
+        setTimeout(() => {
+            currentIndex = (currentIndex + 1) % words.length;
+            textElement.textContent = words[currentIndex];
+            textElement.classList.remove('hide'); // 3. Mostra a palavra nova
+        }, 500); 
+    }, 3000); 
+}
+
+// --- 8. Função do Aparecimento Suave (Fade Up) ---
+function initFadeUp() {
+    // 1. Escolhemos quais elementos queremos que surjam suavemente
+    // Adicionei o carousel-container e a image-info para a Home também entrar animada!
+    const elementsToAnimate = document.querySelectorAll('.section-header, .service-card, .result-card, .why-us-list, .contact-content, .carousel-container, .image-info');
+
+    // 2. Adicionamos a classe 'fade-up' neles via JavaScript
+    elementsToAnimate.forEach(el => el.classList.add('fade-up'));
+
+    // 3. Criamos o "Observador"
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            // Se o elemento entrou na visão do usuário na tela...
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible'); // Faz aparecer
+                observer.unobserve(entry.target); // Para de observar para animar só a primeira vez
+            }
+        });
+    }, { 
+        threshold: 0.1 // A animação dispara quando 10% do elemento aparece
+    });
+
+    // 4. Mandamos o observador olhar para cada um dos elementos
+    const fadeElements = document.querySelectorAll('.fade-up');
+    fadeElements.forEach(el => observer.observe(el));
+}
+
+// --- 9. Função do Slider de Serviços (Crossfade) ---
+function initServiceSliders() {
+    // 1. Pega todas as caixinhas de imagem dos serviços
+    const serviceImages = document.querySelectorAll('.service-image');
+
+    // 2. Para cada cartão de serviço, vamos criar uma rotina
+    serviceImages.forEach(container => {
+        const slides = container.querySelectorAll('.service-slide');
+        
+        // Se tiver menos de 2 fotos, não precisa animar
+        if (slides.length <= 1) return; 
+
+        let currentSlide = 0;
+
+        // Roda a cada 4 segundos (4000 milissegundos)
+        setInterval(() => {
+            // Esconde a foto atual tirando a classe 'active'
+            slides[currentSlide].classList.remove('active');
+            
+            // Pula para a próxima foto (o % faz voltar para o zero se chegar na última foto)
+            currentSlide = (currentSlide + 1) % slides.length;
+            
+            // Mostra a nova foto
+            slides[currentSlide].classList.add('active');
+        }, 4000); 
     });
 }

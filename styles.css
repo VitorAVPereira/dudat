@@ -220,13 +220,38 @@ nav a:hover {
     /* Cria uma sombra elegante */
 }
 
-/* Espaço para a imagem com topo arredondado estilo arco */
 .service-image {
     width: 100%;
     height: 200px;
     background-color: var(--detail-1);
+    /* Fundo caso a imagem demore a carregar */
     border-radius: 15px;
     margin-bottom: 25px;
+    position: relative;
+    /* Transforma a caixa num 'palco' para as imagens absolutas */
+    overflow: hidden;
+    /* Corta qualquer ponta da imagem que saia da caixa */
+}
+
+/* O visual de cada foto dentro do cartão */
+.service-slide {
+    position: absolute;
+    /* Coloca uma foto exatamente em cima da outra */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* Garante que a foto preencha o espaço sem amassar */
+    opacity: 0;
+    /* Começam invisíveis */
+    transition: opacity 1s ease-in-out;
+    /* O segredo do crossfade: transição suave de 1 segundo */
+}
+
+/* Apenas a foto que tiver essa classe aparecerá */
+.service-slide.active {
+    opacity: 1;
 }
 
 .service-card h3 {
@@ -299,7 +324,6 @@ nav a:hover {
     max-height: 350px;
     padding: 30px;
     border-radius: 10px;
-    border-left: 3px solid var(--text-highlight);
 }
 
 .result-card h3 {
@@ -319,7 +343,7 @@ nav a:hover {
 
 .result-card img {
     width: 100%;
-    height: 20%;
+    height: 30%;
 }
 
 .result-card ul {
@@ -435,7 +459,7 @@ nav a:hover {
 /* --- Título/Logo (Dudat.) --- */
 .about-title {
     /* Tipografia */
-    font-size: clamp(3rem, 12vw, 6.5rem);
+    font-size: clamp(3rem, 12vw, 4.5rem);
     /* Diminui automaticamente no celular */
     font-weight: 900;
     text-transform: uppercase;
@@ -511,6 +535,32 @@ nav a:hover {
    MEDIA QUERY: DESKTOP (Telas maiores que 1024px)
    ============================================================ */
 @media (min-width: 1024px) {
+
+    .services-section {
+        padding: 100px 16%;
+    }
+
+    /* O Segredo do Grid: Auto-ajustável! */
+    .services-grid {
+        display: grid;
+        /* Isso cria colunas flexíveis. Mínimo de 300px, máximo de 1 fração (igualmente divididas) */
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 40px;
+        /* Espaço entre os cartões */
+    }
+
+    /* O visual de cada cartão */
+    .service-card {
+        background-color: var(--bg-darker);
+        /* Fundo um tom acima para destacar */
+        padding: 40px 30px;
+        border-radius: 15px;
+        /* Cantos arredondados */
+        text-align: center;
+        transition: transform 0.3s, box-shadow 0.3s;
+        /* Animação suave */
+        cursor: pointer;
+    }
 
     /* O wrapper muda para usar Grid e alinhar a logo ao centro */
     .portfolio-section-wrapper {
@@ -721,4 +771,199 @@ nav a:hover {
     .menu-toggle.active .bar:nth-child(3) {
         transform: translateY(-9px) rotate(-45deg);
     }
+}
+
+/* ============================================================
+   AÇÕES LEGAIS (INTERAÇÕES E ANIMAÇÕES)
+   ============================================================ */
+
+/* --- 1. Texto Dinâmico Rotativo --- */
+.rotating-text {
+    display: inline-block;
+    color: var(--text-dark);
+    /* Usa a cor mais escura para dar destaque à palavra */
+    border-bottom: 3px solid var(--text-dark);
+    /* Um sublinhado elegante */
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+/* Classe que o JS vai colocar para esconder a palavra antes de trocar */
+.rotating-text.hide {
+    opacity: 0;
+    transform: translateY(10px);
+    /* Desce um pouquinho enquanto some */
+}
+
+/* --- 2. Aparecimento Suave ao Rolar (Fade-up) --- */
+.fade-up {
+    opacity: 0;
+    transform: translateY(40px);
+    /* Começa 40px mais para baixo */
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    will-change: opacity, transform;
+    /* Avisa o navegador para otimizar essa animação */
+}
+
+/* Classe que o JS vai colocar quando o elemento entrar na tela */
+.fade-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+    /* Volta para a posição original */
+}
+
+/* Alinha o menu, ícone e hambúrguer na mesma linha */
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+/* O visual do botão do Instagram */
+.nav-social-icon {
+    color: var(--text-dark);
+    /* Fica com a cor padrão do seu texto */
+    display: flex;
+    align-items: center;
+    transition: color 0.3s ease, transform 0.2s ease;
+}
+
+/* Efeito ao passar o mouse */
+.nav-social-icon:hover {
+    color: var(--text-highlight);
+    transform: scale(1.15);
+    /* Dá um zoom elegante no ícone */
+}
+
+/* ============================================================
+   AJUSTE DE RESPONSIVIDADE (MEDIA QUERY EXTRA)
+   ============================================================ */
+@media (max-width: 768px) {
+
+    /* No celular, reduzimos o espaço entre o Instagram e o botão hambúrguer */
+    .header-right {
+        gap: 20px;
+    }
+}
+
+.about-content {
+    max-width: 900px;
+    margin: 0 auto;
+    background-color: rgba(250, 250, 250, 0.95);
+    /* Fundo claro com 95% de opacidade */
+    padding: 60px;
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+}
+
+.about-content h2 {
+    font-family: var(--font-title);
+    font-size: 3rem;
+    color: var(--text-highlight);
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.about-content p {
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--text-dark);
+}
+
+/* Título menor antes da lista */
+.about-subtitle {
+    font-family: var(--font-title);
+    font-size: 1.8rem;
+    color: var(--text-highlight);
+    margin: 40px 0 20px;
+    text-align: center;
+}
+
+/* Lista de serviços organizada em duas colunas (Grid) */
+.about-services-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+    margin-bottom: 40px;
+}
+
+/* Estilo de cada item da lista com o pontinho customizado */
+.about-services-list li {
+    position: relative;
+    padding-left: 25px;
+    font-weight: 700;
+    color: var(--text-dark);
+}
+
+.about-services-list li::before {
+    content: '•';
+    color: var(--text-highlight);
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size: 1.5rem;
+    line-height: 1.2;
+}
+
+/* A frase final de impacto */
+.about-content .about-conclusion {
+    font-family: var(--font-title);
+    font-size: 1.5rem;
+    color: var(--text-highlight);
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 0;
+}
+
+/* Ajuste de responsividade para celulares */
+@media (max-width: 768px) {
+    .about-content {
+        padding: 40px 20px;
+    }
+
+    .about-content h2 {
+        font-size: 2.5rem;
+    }
+}
+
+/* Container que organiza as Tags de forma flexível */
+.about-services-tags {
+    display: flex;
+    flex-wrap: wrap;
+    /* Permite que as tags pulem para a linha de baixo se não couberem */
+    justify-content: center;
+    /* Centraliza tudo de forma elegante */
+    gap: 15px;
+    /* O espaço certinho entre cada pílula */
+    margin-bottom: 40px;
+}
+
+/* O visual de cada Tag (Pílula) */
+.tag {
+    background-color: transparent;
+    border: 2px solid var(--text-highlight);
+    /* Borda com a cor de destaque */
+    color: var(--text-highlight);
+    padding: 10px 25px;
+    /* Espaço interno para não grudar no texto */
+    border-radius: 50px;
+    /* É aqui que a mágica da "pílula" acontece */
+    font-size: 0.95rem;
+    font-weight: bold;
+    cursor: default;
+    /* Cursor normal, pois não são botões clicáveis */
+    transition: all 0.3s ease;
+    /* Prepara para a animação suave */
+}
+
+/* Efeito interativo ao passar o mouse por cima */
+.tag:hover {
+    background-color: var(--text-highlight);
+    color: var(--bg-light);
+    /* O texto fica claro */
+    transform: translateY(-4px);
+    /* A pílula levanta um pouquinho */
+    box-shadow: 0 8px 20px rgba(122, 73, 0, 0.15);
+    /* Cria uma sombra charmosa */
 }
