@@ -14,7 +14,9 @@ async function loadComponent(containerId, filename) {
 
 // 2. QUANDO A PÁGINA CARREGAR:
 window.addEventListener('DOMContentLoaded', async () => {
-    
+    // CHAMA A TELA DE CARREGAMENTO IMEDIATAMENTE
+    initSplashScreen();
+
     // Usamos o Promise.all para carregar todas as seções ao mesmo tempo e ESPERAR todas terminarem
     await Promise.all([
         loadComponent('home-container', 'home.html'),
@@ -24,9 +26,8 @@ window.addEventListener('DOMContentLoaded', async () => {
         loadComponent('results-container', 'results.html'),
         loadComponent('contact-container', 'contact.html')
     ]);
-    
+
     // Só depois de todo o HTML existir na tela, nós ligamos os scripts:
-    initCarousel();
     initRotatingText();
     initFadeUp();
     initServiceSliders();
@@ -48,11 +49,11 @@ setTimeout(() => {
     const closeBtn = document.querySelector('.close-btn');
     const bookingButtons = document.querySelectorAll('.btn-primary');
 
-    if(modal && closeBtn) {
+    if (modal && closeBtn) {
         bookingButtons.forEach(button => {
             button.addEventListener('click', function (event) {
-                event.preventDefault(); 
-                modal.style.display = 'flex'; 
+                event.preventDefault();
+                modal.style.display = 'flex';
             });
         });
 
@@ -160,7 +161,7 @@ const navList = document.getElementById('nav-list');
 
 // Se o botão existir na tela, ativamos a lógica
 if (menuToggle && navList) {
-    
+
     // 1. Abre/Fecha o menu ao clicar no botão hambúrguer
     menuToggle.addEventListener('click', () => {
         menuToggle.classList.toggle('active'); // Faz o botão virar X ou voltar ao normal
@@ -195,33 +196,34 @@ function initRotatingText() {
             currentIndex = (currentIndex + 1) % words.length;
             textElement.textContent = words[currentIndex];
             textElement.classList.remove('hide'); // 3. Mostra a palavra nova
-        }, 500); 
-    }, 3000); 
+        }, 500);
+    }, 3000);
 }
 
-// --- 8. Função do Aparecimento Suave (Fade Up) ---
+
+// --- 8. Função das Animações (Fade Up e Slide Right) ---
 function initFadeUp() {
-    // 1. Escolhemos quais elementos queremos que surjam suavemente
-    // Adicionei o carousel-container e a image-info para a Home também entrar animada!
-    const elementsToAnimate = document.querySelectorAll('.section-header, .service-card, .result-card, .why-us-list, .contact-content, .carousel-container, .image-info');
+    // 1. Elementos que sobem (resto do site)
+    const fadeUpElements = document.querySelectorAll('.section-header, .service-card, .result-card, .why-card, .contact-content');
+    fadeUpElements.forEach(el => el.classList.add('fade-up'));
 
-    // 2. Adicionamos a classe 'fade-up' neles via JavaScript
-    elementsToAnimate.forEach(el => el.classList.add('fade-up'));
+    // 2. Prepara os elementos da Home que vem da direita (mas NÃO anima ainda)
+    const slideRightElements = document.querySelectorAll('.hero-images-stacked, .image-info, .about-title');
+    slideRightElements.forEach(el => el.classList.add('slide-in-right'));
 
-    // 3. Criamos o "Observador"
+    // 3. Criamos o "Observador" APENAS para os que sobem conforme rolamos a página
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-            // Se o elemento entrou na visão do usuário na tela...
             if (entry.isIntersecting) {
-                entry.target.classList.add('visible'); // Faz aparecer
-                observer.unobserve(entry.target); // Para de observar para animar só a primeira vez
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
             }
         });
-    }, { 
-        threshold: 0.1 // A animação dispara quando 10% do elemento aparece
+    }, {
+        threshold: 0.1
     });
 
-    // 4. Mandamos o observador olhar para cada um dos elementos
+    // 4. Mandamos o observador olhar APENAS para o fade-up
     const fadeElements = document.querySelectorAll('.fade-up');
     fadeElements.forEach(el => observer.observe(el));
 }
@@ -234,9 +236,9 @@ function initServiceSliders() {
     // 2. Para cada cartão de serviço, vamos criar uma rotina
     serviceImages.forEach(container => {
         const slides = container.querySelectorAll('.service-slide');
-        
+
         // Se tiver menos de 2 fotos, não precisa animar
-        if (slides.length <= 1) return; 
+        if (slides.length <= 1) return;
 
         let currentSlide = 0;
 
@@ -244,12 +246,48 @@ function initServiceSliders() {
         setInterval(() => {
             // Esconde a foto atual tirando a classe 'active'
             slides[currentSlide].classList.remove('active');
-            
+
             // Pula para a próxima foto (o % faz voltar para o zero se chegar na última foto)
             currentSlide = (currentSlide + 1) % slides.length;
-            
+
             // Mostra a nova foto
             slides[currentSlide].classList.add('active');
-        }, 4000); 
+        }, 4000);
     });
+}
+
+// --- 10. Função da Tela de Carregamento (Splash Screen) ---
+function initSplashScreen() {
+    const splashScreen = document.getElementById('splash-screen');
+    const progressNumber = document.getElementById('progress-number');
+
+    if (!splashScreen || !progressNumber) return;
+
+    let progress = 0;
+    const intervalTime = 12;
+
+    document.body.style.overflow = 'hidden';
+
+    const counter = setInterval(() => {
+        progress += 1;
+        progressNumber.textContent = progress;
+
+        if (progress >= 100) {
+            clearInterval(counter);
+
+            setTimeout(() => {
+                // Esconde a tela de Splash
+                splashScreen.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+                window.scrollTo(0, 0);
+
+                // A MÁGICA ESTÁ AQUI: Dispara a animação da Home 0.1s depois que a tela clarear!
+                setTimeout(() => {
+                    const slideRightElements = document.querySelectorAll('.slide-in-right');
+                    slideRightElements.forEach(el => el.classList.add('visible'));
+                }, 100);
+
+            }, 200);
+        }
+    }, intervalTime);
 }
