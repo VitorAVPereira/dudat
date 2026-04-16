@@ -1127,30 +1127,40 @@ nav a:hover {
 /* ============================================================
    IMAGENS SOBREPOSTAS (HOME)
    ============================================================ */
-.hero-images-stacked {
+.hero-images-home-slider {
     position: relative;
     width: 100%;
     max-width: 450px;
     aspect-ratio: 4 / 5;
-    /* Mantém a proporção elegante que já tínhamos */
+    /* Mantém a proporção chique */
     margin: 0 auto;
+    border-radius: 15px;
+    overflow: hidden;
+    /* Garante que as fotos não vazem do arredondado */
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
 }
 
-.img-main {
-    width: 85%;
-    height: 95%;
-    object-fit: cover;
-    border-radius: 10px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+/* Estilo base de cada slide (escondido por padrão) */
+.home-slide {
     position: absolute;
     top: 0;
-    right: 0;
-    /* Fixa no topo e na direita */
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 1.2s ease-in-out;
+    /* Transição suave de 1.2 segundos */
 }
 
-.img-overlay {
+/* O slide que estiver com a classe 'active' fica visível */
+.home-slide.active {
+    opacity: 1;
+}
+
+/* .img-overlay {
     width: 55%;
-    /* Imagem um pouco menor */
+    Imagem um pouco menor 
     height: 70%;
     object-fit: cover;
     border-radius: 10px;
@@ -1158,9 +1168,9 @@ nav a:hover {
     position: absolute;
     bottom: 0;
     left: 0;
-    /* Fixa embaixo e na esquerda, sobrepondo a outra */
-    /* border: 6px solid var(--bg-light); Bordinha na cor do fundo para separar perfeitamente as duas fotos */
-}
+    Fixa embaixo e na esquerda, sobrepondo a outra
+    border: 6px solid var(--bg-light); Bordinha na cor do fundo para separar perfeitamente as duas fotos
+} */
 
 /* ============================================================
    ANIMAÇÃO DESLIZANDO DA DIREITA

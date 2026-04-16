@@ -31,6 +31,7 @@ window.addEventListener('DOMContentLoaded', async () => {
     initRotatingText();
     initFadeUp();
     initServiceSliders();
+    initHomeSlider();
 });
 
 // 3. O código do menu que muda de cor ao rolar a página
@@ -290,4 +291,27 @@ function initSplashScreen() {
             }, 200);
         }
     }, intervalTime);
+}
+
+// --- 11. Função do Slider da Home (Crossfade) ---
+function initHomeSlider() {
+    const container = document.querySelector('.hero-images-home-slider');
+    if (!container) return;
+
+    const slides = container.querySelectorAll('.home-slide');
+    if (slides.length <= 1) return;
+
+    let currentSlide = 0;
+
+    // Roda a cada 4 segundos
+    setInterval(() => {
+        // 1. Remove o active da imagem atual
+        slides[currentSlide].classList.remove('active');
+
+        // 2. Avança para a próxima (fazendo o loop com %)
+        currentSlide = (currentSlide + 1) % slides.length;
+
+        // 3. Adiciona o active na nova imagem
+        slides[currentSlide].classList.add('active');
+    }, 4000);
 }
