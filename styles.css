@@ -1228,7 +1228,7 @@ nav a:hover {
     display: flex;
     /* REMOVEMOS O GAP DAQUI */
     width: max-content;
-    animation: infiniteScroll 20s linear infinite;
+    animation: infiniteScroll 40s linear infinite;
     /* Pode ajustar a velocidade aqui */
 }
 
@@ -1279,7 +1279,7 @@ nav a:hover {
 
     100% {
         /* Como usamos margin-right, o cálculo agora é EXATAMENTE 50% sem quebrar */
-        transform: translateX(-120%);
+        transform: translateX(-220%);
     }
 }
 
@@ -1291,7 +1291,7 @@ nav a:hover {
 
         100% {
             /* Como usamos margin-right, o cálculo agora é EXATAMENTE 50% sem quebrar */
-            transform: translateX(-450%);
+            transform: translateX(-850%);
         }
     }
 
