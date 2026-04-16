@@ -387,13 +387,15 @@ nav a:hover {
     padding-top: 5px;
     /* Alinha o texto com o meio do número */
 }
+
 /* --- 9. Seção Results --- */
 .results-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 30px;
     margin-top: 40px;
-    align-items: stretch; /* Garante que todos os cartões estiquem para ter a mesma altura da linha */
+    align-items: stretch;
+    /* Garante que todos os cartões estiquem para ter a mesma altura da linha */
 }
 
 .result-card {
@@ -401,19 +403,24 @@ nav a:hover {
     display: flex;
     flex-direction: column;
     /* Removemos o max-height para o cartão poder crescer naturalmente */
-    height: 100%; 
+    height: 100%;
     padding: 30px;
     border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05); /* Sombreado leve extra para ficar elegante */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    /* Sombreado leve extra para ficar elegante */
 }
 
 /* O segredo do alinhamento das imagens */
 .result-card img {
     width: 100%;
-    height: 150px; /* Altura exata e igual para todas as imagens */
-    object-fit: contain; /* Encaixa o logo sem amassar ou cortar */
-    object-position: left center; /* Mantém os logos alinhados à esquerda (mude para 'center' se preferir no meio) */
-    margin-bottom: 30px; /* Empurra o H1 sempre a partir do mesmo ponto */
+    height: 150px;
+    /* Altura exata e igual para todas as imagens */
+    object-fit: contain;
+    /* Encaixa o logo sem amassar ou cortar */
+    object-position: left center;
+    /* Mantém os logos alinhados à esquerda (mude para 'center' se preferir no meio) */
+    margin-bottom: 30px;
+    /* Empurra o H1 sempre a partir do mesmo ponto */
 }
 
 .result-card h1 {
@@ -428,14 +435,14 @@ nav a:hover {
 
 .result-card ul {
     /* Mudamos de 'inside' para 'outside' */
-    list-style-position: outside; 
-    
+    list-style-position: outside;
+
     color: var(--text-dark);
     margin: 0;
-    
+
     /* Trocamos o padding: 0 por um padding à esquerda para caber os pontinhos */
-    padding-left: 18px; 
-    
+    padding-left: 18px;
+
     flex-grow: 1;
 }
 
@@ -443,7 +450,7 @@ nav a:hover {
     margin-bottom: 8px;
     line-height: 1.4;
     /* Adicionamos um pequeno espaçamento entre o pontinho e o texto */
-    padding-left: 5px; 
+    padding-left: 5px;
 }
 
 /* --- 10. Seção Portfolio --- */
@@ -919,6 +926,7 @@ nav a:hover {
         font-size: small;
         font-weight: 700;
     }
+
     /* No celular, reduzimos o espaço entre o Instagram e o botão hambúrguer */
     .header-right {
         gap: 20px;
@@ -1159,7 +1167,8 @@ nav a:hover {
    ============================================================ */
 .slide-in-right {
     opacity: 0;
-    transform: translateX(150px); /* Vem de mais longe (era 100px) */
+    transform: translateX(150px);
+    /* Vem de mais longe (era 100px) */
     /* Aumentamos para 1.5 segundos e usamos uma curva de aceleração bem elegante */
     transition: opacity 1.5s cubic-bezier(0.2, 0.8, 0.2, 1), transform 1.5s cubic-bezier(0.2, 0.8, 0.2, 1);
     will-change: opacity, transform;
@@ -1167,7 +1176,7 @@ nav a:hover {
 
 .slide-in-right.visible {
     opacity: 1;
-    transform: translateX(0); 
+    transform: translateX(0);
 }
 
 /* main */
@@ -1178,15 +1187,17 @@ nav a:hover {
     width: 80vw;
     padding: 48px;
 }
+
 @media (max-width: 768px) {
     .title-page {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100vw;
-    padding: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100vw;
+        padding: 8px;
+    }
 }
-}
+
 .h1-dudat {
     text-transform: uppercase;
 }
@@ -1202,7 +1213,6 @@ nav a:hover {
    SEÇÃO WHY US (CARROSSEL INFINITO)
    ============================================================ */
 
-/* O contêiner que "esconde" o que vaza para fora da tela */
 .why-us-carousel-container {
     width: 100%;
     overflow: hidden;
@@ -1213,13 +1223,13 @@ nav a:hover {
     mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
 }
 
-/* O trilho comprido que vai se mover */
+/* 1. O Trilho */
 .why-us-carousel-track {
     display: flex;
-    gap: 25px; /* Espaço entre os cartões */
-    width: max-content; /* Deixa o trilho ficar da largura que precisar */
-    /* A animação: Roda por 40 segundos numa velocidade linear, para sempre */
-    animation: infiniteScroll 40s linear infinite;
+    /* REMOVEMOS O GAP DAQUI */
+    width: max-content;
+    animation: infiniteScroll 20s linear infinite;
+    /* Pode ajustar a velocidade aqui */
 }
 
 /* Interatividade: Pausa a animação quando o mouse passa por cima */
@@ -1227,21 +1237,24 @@ nav a:hover {
     animation-play-state: paused;
 }
 
-/* Os Cartões de Vidro (Adaptados para o Carrossel) */
+/* 2. Os Cartões de Vidro */
 .why-card {
-    width: 320px; /* Largura fixa para ficarem alinhados */
-    flex-shrink: 0; /* Impede que o flexbox amasse os cartões */
-    
-    background: rgba(250, 250, 250, 0.85); 
-    backdrop-filter: blur(8px); 
+    width: 320px;
+    flex-shrink: 0;
+
+    /* COLOCAMOS O ESPAÇO AQUI COMO MARGEM */
+    margin-right: 25px;
+
+    background: rgba(250, 250, 250, 0.85);
+    backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     padding: 30px;
     border-radius: 15px;
     display: flex;
-    align-items: center; /* Centraliza o texto verticalmente */
+    align-items: center;
     text-align: center;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.5); 
+    border: 1px solid rgba(255, 255, 255, 0.5);
     transition: transform 0.3s ease, background 0.3s ease;
 }
 
@@ -1258,14 +1271,28 @@ nav a:hover {
     width: 100%;
 }
 
-/* A Mágica do CSS: Puxa o trilho para a esquerda */
+/* 3. A Animação Corrigida */
 @keyframes infiniteScroll {
     0% {
         transform: translateX(0);
     }
+
     100% {
-        /* Move exatamente metade do tamanho total (já que duplicamos a lista) */
-        /* O cálculo -12.5px compensa metade do gap de 25px para o loop ser perfeito */
-        transform: translateX(calc(-50% - 12.5px));
+        /* Como usamos margin-right, o cálculo agora é EXATAMENTE 50% sem quebrar */
+        transform: translateX(-120%);
     }
+}
+
+@media (max-width: 768px) {
+    @keyframes infiniteScroll {
+        0% {
+            transform: translateX(0);
+        }
+
+        100% {
+            /* Como usamos margin-right, o cálculo agora é EXATAMENTE 50% sem quebrar */
+            transform: translateX(-450%);
+        }
+    }
+
 }
